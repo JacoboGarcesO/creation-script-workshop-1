@@ -7,6 +7,12 @@
 **Consulta SQL:**
 ```sql
 
+select cl.id_cliente, cl.nombre, count (cu.num_cuenta) as cantidad_cuentas, sum(cu.saldo) as saldo_total from cliente cl
+inner join cuenta cu on cl.id_cliente = cu.id_cliente
+group by cl.id_cliente, cl.nombre
+having count (cu.num_cuenta) > 1
+order by sum(cu.saldo) desc
+
 ```
 
 ## Enunciado 2: Comparativa entre depósitos y retiros por cliente
@@ -15,6 +21,13 @@
 
 **Consulta SQL:**
 ```sql
+
+select cl.id_cliente, cl.nombre, sum(tr.monto) as monto_total, tr.tipo_transaccion from cliente cl 
+inner join cuenta cu  on cl.id_cliente = cu.id_cliente
+inner join Transaccion tr on tr.num_cuenta = cu.num_cuenta
+group by cl.id_cliente, cl.nombre, tr.tipo_transaccion
+having tipo_transaccion in ('deposito','retiro')
+order by cl.id_cliente, sum(tr.monto) desc
 
 ```
 
@@ -25,6 +38,10 @@
 **Consulta SQL:**
 ```sql
 
+select cu.num_cuenta, ta.id_tarjeta, ta.numero_tarjeta, ta.tipo_tarjeta  from Cuenta cu 
+left join Tarjeta ta on cu.num_cuenta = ta.num_cuenta
+where ta.num_cuenta is null
+
 ```
 
 ## Enunciado 4: Análisis de saldos promedio por tipo de cuenta y comportamiento transaccional
@@ -34,6 +51,11 @@
 **Consulta SQL:**
 ```sql
 
+select cu.tipo_cuenta, AVG(saldo) as promedio from Transaccion tr 
+inner join Cuenta cu on tr.num_cuenta = cu.num_cuenta
+where  (tr.fecha >= GETDATE() -30)
+group by cu.tipo_cuenta
+
 ```
 
 ## Enunciado 5: Clientes con transferencias pero sin retiros en cajeros
@@ -42,5 +64,18 @@
 
 **Consulta SQL:**
 ```sql
+
+select cl.id_cliente, cl.nombre, tr.tipo_transaccion, rt.canal from cliente cl 
+inner join cuenta cu on cu.id_cliente = cl.id_cliente 
+inner join Transaccion tr on cu.num_cuenta = tr.num_cuenta
+left join retiro rt on rt.id_transaccion =tr.id_transaccion
+where tipo_transaccion in ('transferencia','retiro')
+     and not exists
+	 (select cl.id_cliente, cl.nombre, tr.tipo_transaccion, rt.canal from cliente cl 
+	 inner join cuenta cu on cu.id_cliente = cl.id_cliente 
+	 inner join Transaccion tr on cu.num_cuenta = tr.num_cuenta
+	 left join retiro rt on rt.id_transaccion =tr.id_transaccion
+	 where rt.canal in ('cajero'))
+group by  cl.id_cliente, cl.nombre, tr.tipo_transaccion, rt.canal
 
 ```
