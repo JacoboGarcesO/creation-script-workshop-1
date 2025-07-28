@@ -7,10 +7,10 @@ A continuación se presenta un ejemplo de cómo se estructuraría la informació
 ```json
 {
   "_id": "ObjectId('507f1f77bcf86cd799439011')",
-  "nombre": "Juan Pérez",
+  "nombre": "Juan Perez",
   "cedula": "1098765432",
   "correo": "juan.perez@email.com",
-  "direccion": "Calle 123 #45-67, Medellín, Colombia",
+  "direccion": "Calle 123 #45-67, Medellin, Colombia",
   "cuentas": [
     {
       "num_cuenta": 1000000001,
