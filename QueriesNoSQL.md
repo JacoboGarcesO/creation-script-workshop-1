@@ -8,6 +8,18 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Clientes.aggregate([
+   { $unwind: "$cuentas" },
+  {
+    $group: {
+      _id: "$cuentas.tipo_cuenta",
+      saldo_total: { $sum:  "$cuentas.saldo"  },
+      saldo_promedio: { $avg:  "$cuentas.saldo"  },
+      saldo_maximo: { $max:  "$cuentas.saldo"  },
+      saldo_minimo: { $min:  "$cuentas.saldo"  }
+    }
+  }
+])
 ```
 
 ## 2. Patrones de Transacciones por Cliente
@@ -16,6 +28,17 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.transaccion.aggregate([
+  {$group:
+  { _id:{
+    clientebuscar:"$cliente_ref",
+    transacciontipos:"$tipo_transaccion", 
+    },
+    montototal:{ $sum:"$monto"} ,
+    total_cliente:{$sum:1}}
+  }
+  
+])
 ```
 
 ## 3. Clientes con Múltiples Tarjetas de Crédito
@@ -24,6 +47,22 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Clientes.aggregate([
+    { $unwind: "$cuentas" },
+    { $unwind: "$cuentas.tarjetas" },
+    { $match: { "cuentas.tarjetas.tipo_tarjeta": "credito" } },
+    {
+    $group: {
+      _id: "$_id",
+      nombreCliente: { $first: "$nombre" },
+      cedulaCliente: { $first: "$cedula" },
+      correoCliente: { $first: "$correo" },
+      direccionCliente: { $first: "$direccion" },
+      Info_tarjetas: { $push: "$cuentas.tarjetas" },
+      tarjetas_credito: { $sum: 1 }
+    }
+  }
+])
 ```
 
 ## 4. Análisis de Medios de Pago más Utilizados
@@ -32,6 +71,29 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.transaccion.aggregate([
+  { $match: { tipo_transaccion: "deposito" } },
+  { 
+    $addFields: { 
+      fecha_date: { $toDate: "$fecha" }
+    }
+  },
+  {
+    $addFields: {
+      mes: { $dateToString: { format: "%Y-%m", date: "$fecha_date" } }
+    }
+  },
+  {
+    $group: {
+      _id: { mes: "$mes", medio_pago: "$detalles_deposito.medio_pago" },
+      cantidad_depositos: { $sum: 1 },
+      total_monto: { $sum: "$monto" }
+    }
+  },
+  {
+    $sort: { "_id.mes": 1, "_id.medio_pago": 1 }
+  }
+])
 ```
 
 ## 5. Detección de Cuentas con Transacciones Sospechosas
@@ -40,4 +102,32 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.transaccion.aggregate([
+    { $match: { tipo_transaccion: "retiro" } },
+   { 
+    $addFields: { 
+      fecha_date: { $toDate: "$fecha" }
+    }
+   },
+
+  {
+    $addFields: {
+      dia: { $dateToString: { format: "%Y-%m-%d", date: "$fecha_date" } }
+    }
+  },
+  {
+    $group: {
+      _id: { num_cuenta: "$num_cuenta", dia: "$dia" },
+      total_retiros: { $sum: 1 },
+      monto_total_retiros: { $sum: "$monto" }
+    }
+  },
+ {
+    $match: {
+      total_retiros: { $gt: 3 },
+      monto_total_retiros: { $gt: 1000000 }
+    }
+  }
+ 
+])
 ```

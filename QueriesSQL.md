@@ -6,7 +6,19 @@
 
 **Consulta SQL:**
 ```sql
+select c.nombre , sum(cu.saldo) as saldoTotal , cc.cantidad_cuentas
+from ( SELECT id_cliente, COUNT(id_cliente) AS cantidad_cuentas
+       FROM cuenta
+    GROUP BY id_cliente
+) cc 
+inner join cliente as c on cc.id_cliente = c.id_cliente  
+inner join cuenta as cu on cu.id_cliente = c.id_cliente 
+where cc.cantidad_cuentas >  1
+group by c.nombre ,  cu.saldo , cc.cantidad_cuentas
 
+order by cu.saldo desc
+
+;
 ```
 
 ## Enunciado 2: Comparativa entre depósitos y retiros por cliente
@@ -15,6 +27,15 @@
 
 **Consulta SQL:**
 ```sql
+select c.nombre  
+,   sum(case when tipo_transaccion = 'deposito' then monto else 0 end ) AS DEPOSITOS  ,  
+sum(case when tipo_transaccion = 'retiro' then monto else 0 end ) AS retiros 
+from cliente as c 
+inner join cuenta as cu on c.id_cliente = cu.id_cliente
+inner join transaccion as t on cu.num_cuenta = t.num_cuenta 
+GROUP BY c.nombre  
+order by c.nombre
+;
 
 ```
 
@@ -25,6 +46,11 @@
 **Consulta SQL:**
 ```sql
 
+select c.num_cuenta, t.numero_tarjeta 
+from cuenta as c 
+LEFT JOIN tarjeta as t ON t.num_cuenta = c.num_cuenta 
+where t.num_cuenta is NULL
+; 
 ```
 
 ## Enunciado 4: Análisis de saldos promedio por tipo de cuenta y comportamiento transaccional
@@ -33,7 +59,14 @@
 
 **Consulta SQL:**
 ```sql
+select  c.id_cliente , c.tipo_cuenta , c.num_cuenta , AVG(c.saldo) as Saldo_promedio
+from cuenta as c 
+inner join transaccion as t on c.num_cuenta = t.num_cuenta 
+where t.fecha >= CURRENT_DATE - INTERVAL '30' DAY 
+GROUP by id_cliente , tipo_cuenta , c.num_cuenta 
+order by id_cliente  , c.tipo_cuenta 
 
+;
 ```
 
 ## Enunciado 5: Clientes con transferencias pero sin retiros en cajeros
@@ -42,5 +75,19 @@
 
 **Consulta SQL:**
 ```sql
+select cl.nombre , c.num_cuenta , t.tipo_transaccion , t.descripcion
+from transaccion as t
+inner join cuenta as c  on t.num_cuenta = c.num_cuenta 
+inner join cliente as cl on cl.id_cliente = c.id_cliente
+where t.descripcion like '%Transferencia%'
 
+EXCEPT 
+
+select cl.nombre , c.num_cuenta , t.tipo_transaccion  , t.descripcion 
+from transaccion as t 
+inner join cuenta as c  on t.num_cuenta = c.num_cuenta 
+inner join cliente as cl on cl.id_cliente = c.id_cliente 
+where t.descripcion = 'Retiro en cajero automático '
+
+;
 ```
