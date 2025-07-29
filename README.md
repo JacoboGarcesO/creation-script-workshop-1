@@ -267,7 +267,7 @@ INSERT INTO CuentaAhorro (num_cuenta, tasa_interes, limite_retiros) VALUES
 (1000000003, 3.25, 4),
 (1000000005, 3.75, 6),
 (1000000007, 3.60, 5),
-(1000000008, 3.40, 4),
+(1000000009, 3.40, 4),
 (1000000011, 3.80, 6),
 (1000000013, 3.55, 5),
 (1000000015, 3.30, 4),
@@ -287,7 +287,7 @@ INSERT INTO CuentaCorriente (num_cuenta, limite_sobregiro, comision_mensual) VAL
 (1000000002, 2000000.00, 15000.00),
 (1000000004, 2500000.00, 18000.00),
 (1000000006, 1800000.00, 12000.00),
-(1000000009, 3000000.00, 20000.00),
+(1000000008, 3000000.00, 20000.00),
 (1000000010, 2200000.00, 16000.00),
 (1000000012, 1900000.00, 13000.00),
 (1000000014, 2800000.00, 19000.00),
@@ -422,7 +422,7 @@ INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion
 (1000000001, '2023-03-15 15:20:00', 520000.00, 'transferencia', 'Transferencia a familiar'),
 (1000000001, '2023-03-25 12:45:00', 180000.00, 'transferencia', 'Pago de préstamo');
 
--- Transacciones para la cuenta 1000000002 (Cliente 1: Juan Pérez)
+-- Transacciones para la cuenta 1000000002 (Cliente 2: María López)
 -- Depósitos
 INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
 (1000000002, '2023-01-07 10:15:00', 800000.00, 'deposito', 'Depósito de nómina'),
@@ -442,7 +442,7 @@ INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion
 (1000000002, '2023-03-27 11:45:00', 280000.00, 'transferencia', 'Pago de alquiler');
 
 -- Continuar con el mismo patrón para las cuentas restantes...
--- Transacciones para la cuenta 1000000003 (Cliente 1: Juan Pérez)
+-- Transacciones para la cuenta 1000000003 (Cliente 3: Carlos Rodríguez)
 -- Depósitos
 INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
 (1000000003, '2023-01-08 08:15:00', 550000.00, 'deposito', 'Depósito de cheque'),
@@ -461,10 +461,7 @@ INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion
 (1000000003, '2023-03-18 15:20:00', 470000.00, 'transferencia', 'Transferencia a familiar'),
 (1000000003, '2023-03-28 13:45:00', 290000.00, 'transferencia', 'Pago de préstamo');
 
--- Transacciones para las cuentas restantes (4-30)
--- Para simplificar, solo mostraré algunas transacciones más como ejemplo
-
--- Transacciones para la cuenta 1000000004 (Cliente 2: María López)
+-- Transacciones para la cuenta 1000000004 (Cliente 4: Ana Martínez)
 -- Depósitos
 INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
 (1000000004, '2023-01-09 11:15:00', 900000.00, 'deposito', 'Depósito de nómina'),
@@ -483,7 +480,7 @@ INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion
 (1000000004, '2023-03-19 14:20:00', 650000.00, 'transferencia', 'Transferencia a socio'),
 (1000000004, '2023-03-29 11:45:00', 320000.00, 'transferencia', 'Pago de alquiler');
 
--- Transacciones para la cuenta 1000000005 (Cliente 2: María López)
+-- Transacciones para la cuenta 1000000005 (Cliente 5: Pedro Gómez)
 -- Depósitos
 INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
 (1000000005, '2023-01-10 09:15:00', 600000.00, 'deposito', 'Depósito en efectivo'),
@@ -502,7 +499,100 @@ INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion
 (1000000005, '2023-03-20 15:20:00', 490000.00, 'transferencia', 'Transferencia a familiar'),
 (1000000005, '2023-03-30 12:45:00', 260000.00, 'transferencia', 'Pago de préstamo');
 
--- Continuar con el mismo patrón para las cuentas restantes...
+-- Transacciones para la cuenta 1000000006 (Cliente 6: Laura Sánchez)
+-- Depósitos
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000006, '2023-01-11 08:15:00', 750000.00, 'deposito', 'Depósito de nómina'),
+(1000000006, '2023-01-21 13:30:00', 850000.00, 'deposito', 'Depósito por transferencia'),
+(1000000006, '2023-01-31 09:45:00', 650000.00, 'deposito', 'Depósito en efectivo');
+
+-- Retiros
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000006, '2023-02-11 10:20:00', 380000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000006, '2023-02-21 15:40:00', 520000.00, 'retiro', 'Retiro en cajero'),
+(1000000006, '2023-02-28 14:10:00', 290000.00, 'retiro', 'Retiro para gastos');
+
+-- Transferencias
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000006, '2023-03-11 09:30:00', 420000.00, 'transferencia', 'Pago de tarjeta de crédito'),
+(1000000006, '2023-03-21 16:20:00', 580000.00, 'transferencia', 'Transferencia a socio'),
+(1000000006, '2023-03-31 11:45:00', 310000.00, 'transferencia', 'Pago de alquiler');
+
+-- Transacciones para la cuenta 1000000007 (Cliente 7: Diego Ramírez)
+-- Depósitos
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000007, '2023-01-12 10:15:00', 480000.00, 'deposito', 'Depósito en efectivo'),
+(1000000007, '2023-01-22 15:30:00', 620000.00, 'deposito', 'Depósito de cheque'),
+(1000000007, '2023-01-31 12:45:00', 390000.00, 'deposito', 'Depósito por transferencia');
+
+-- Retiros
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000007, '2023-02-12 11:20:00', 280000.00, 'retiro', 'Retiro en cajero'),
+(1000000007, '2023-02-22 16:40:00', 350000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000007, '2023-02-28 13:10:00', 210000.00, 'retiro', 'Retiro en cajero automático');
+
+-- Transferencias
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000007, '2023-03-12 09:30:00', 320000.00, 'transferencia', 'Pago de servicios'),
+(1000000007, '2023-03-22 14:20:00', 410000.00, 'transferencia', 'Transferencia a familiar'),
+(1000000007, '2023-03-31 11:45:00', 180000.00, 'transferencia', 'Pago de préstamo');
+
+-- Transacciones para la cuenta 1000000008 (Cliente 8: Sofía Castro)
+-- Depósitos
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000008, '2023-01-13 09:15:00', 520000.00, 'deposito', 'Depósito en efectivo'),
+(1000000008, '2023-01-23 14:30:00', 680000.00, 'deposito', 'Depósito de cheque'),
+(1000000008, '2023-01-31 11:45:00', 430000.00, 'deposito', 'Depósito por transferencia');
+
+-- Retiros
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000008, '2023-02-13 10:20:00', 310000.00, 'retiro', 'Retiro en cajero'),
+(1000000008, '2023-02-23 15:40:00', 390000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000008, '2023-02-28 12:10:00', 240000.00, 'retiro', 'Retiro en cajero automático');
+
+-- Transferencias
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000008, '2023-03-13 08:30:00', 350000.00, 'transferencia', 'Pago de servicios'),
+(1000000008, '2023-03-23 13:20:00', 450000.00, 'transferencia', 'Transferencia a familiar'),
+(1000000008, '2023-03-31 10:45:00', 220000.00, 'transferencia', 'Pago de préstamo');
+
+-- Transacciones para la cuenta 1000000009 (Cliente 9: Andrés Vargas)
+-- Depósitos
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000009, '2023-01-14 11:15:00', 950000.00, 'deposito', 'Depósito de nómina'),
+(1000000009, '2023-01-24 16:30:00', 820000.00, 'deposito', 'Depósito por transferencia'),
+(1000000009, '2023-01-31 13:45:00', 880000.00, 'deposito', 'Depósito en efectivo');
+
+-- Retiros
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000009, '2023-02-14 12:20:00', 480000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000009, '2023-02-24 17:40:00', 620000.00, 'retiro', 'Retiro en cajero'),
+(1000000009, '2023-02-28 14:10:00', 380000.00, 'retiro', 'Retiro para gastos');
+
+-- Transferencias
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000009, '2023-03-14 10:30:00', 520000.00, 'transferencia', 'Pago de tarjeta de crédito'),
+(1000000009, '2023-03-24 15:20:00', 680000.00, 'transferencia', 'Transferencia a socio'),
+(1000000009, '2023-03-31 12:45:00', 350000.00, 'transferencia', 'Pago de alquiler');
+
+-- Transacciones para la cuenta 1000000010 (Cliente 10: Valentina Herrera)
+-- Depósitos
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000010, '2023-01-15 08:15:00', 780000.00, 'deposito', 'Depósito de nómina'),
+(1000000010, '2023-01-25 13:30:00', 890000.00, 'deposito', 'Depósito por transferencia'),
+(1000000010, '2023-01-31 09:45:00', 720000.00, 'deposito', 'Depósito en efectivo');
+
+-- Retiros
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000010, '2023-02-15 09:20:00', 420000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000010, '2023-02-25 14:40:00', 550000.00, 'retiro', 'Retiro en cajero'),
+(1000000010, '2023-02-28 10:10:00', 320000.00, 'retiro', 'Retiro para gastos');
+
+-- Transferencias
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000010, '2023-03-15 07:30:00', 460000.00, 'transferencia', 'Pago de tarjeta de crédito'),
+(1000000010, '2023-03-25 12:20:00', 610000.00, 'transferencia', 'Transferencia a socio'),
+(1000000010, '2023-03-31 08:45:00', 290000.00, 'transferencia', 'Pago de alquiler');
 
 -- INSERTAR REGISTROS EN TABLAS DE ESPECIALIZACIÓN DE TRANSACCIONES
 
@@ -561,28 +651,6 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (44, 1000000004),
 (45, 1000000001);
 
--- Continuar con más transacciones para las cuentas restantes (6-30)
--- Aquí solo se muestran algunas transacciones adicionales como ejemplo
-
--- Transacciones para la cuenta 1000000006 (Cliente 2: María López)
--- Depósitos
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000006, '2023-01-11 08:15:00', 750000.00, 'deposito', 'Depósito de nómina'),
-(1000000006, '2023-01-21 13:30:00', 850000.00, 'deposito', 'Depósito por transferencia'),
-(1000000006, '2023-01-31 09:45:00', 650000.00, 'deposito', 'Depósito en efectivo');
-
--- Retiros
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000006, '2023-02-11 10:20:00', 380000.00, 'retiro', 'Retiro en ventanilla'),
-(1000000006, '2023-02-21 15:40:00', 520000.00, 'retiro', 'Retiro en cajero'),
-(1000000006, '2023-02-28 14:10:00', 290000.00, 'retiro', 'Retiro para gastos');
-
--- Transferencias
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000006, '2023-03-11 09:30:00', 420000.00, 'transferencia', 'Pago de tarjeta de crédito'),
-(1000000006, '2023-03-21 16:20:00', 580000.00, 'transferencia', 'Transferencia a socio'),
-(1000000006, '2023-03-31 11:45:00', 310000.00, 'transferencia', 'Pago de alquiler');
-
 -- Registros adicionales para Deposito, Retiro y Transferencia
 INSERT INTO Deposito (id_transaccion, medio_pago) VALUES
 (46, 'nómina'),
@@ -598,29 +666,6 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (52, 1000000001),
 (53, 1000000002),
 (54, 1000000003);
-
--- Transacciones para las cuentas restantes (7-30)
--- Para cada cuenta, se deben crear 9 transacciones (3 depósitos, 3 retiros, 3 transferencias)
--- Aquí se muestra un ejemplo para la cuenta 1000000007
-
--- Transacciones para la cuenta 1000000007 (Cliente 3: Carlos Rodríguez)
--- Depósitos
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000007, '2023-01-12 10:15:00', 480000.00, 'deposito', 'Depósito en efectivo'),
-(1000000007, '2023-01-22 15:30:00', 620000.00, 'deposito', 'Depósito de cheque'),
-(1000000007, '2023-01-31 12:45:00', 390000.00, 'deposito', 'Depósito por transferencia');
-
--- Retiros
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000007, '2023-02-12 11:20:00', 280000.00, 'retiro', 'Retiro en cajero'),
-(1000000007, '2023-02-22 16:40:00', 350000.00, 'retiro', 'Retiro en ventanilla'),
-(1000000007, '2023-02-28 13:10:00', 210000.00, 'retiro', 'Retiro en cajero automático');
-
--- Transferencias
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000007, '2023-03-12 09:30:00', 320000.00, 'transferencia', 'Pago de servicios'),
-(1000000007, '2023-03-22 14:20:00', 410000.00, 'transferencia', 'Transferencia a familiar'),
-(1000000007, '2023-03-31 11:45:00', 180000.00, 'transferencia', 'Pago de préstamo');
 
 -- Registros adicionales para Deposito, Retiro y Transferencia
 INSERT INTO Deposito (id_transaccion, medio_pago) VALUES
@@ -638,25 +683,6 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (62, 1000000005),
 (63, 1000000006);
 
--- Transacciones para la cuenta 1000000008 (Cliente 3: Carlos Rodríguez)
--- Depósitos
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000008, '2023-01-13 09:15:00', 520000.00, 'deposito', 'Depósito en efectivo'),
-(1000000008, '2023-01-23 14:30:00', 680000.00, 'deposito', 'Depósito de cheque'),
-(1000000008, '2023-01-31 11:45:00', 430000.00, 'deposito', 'Depósito por transferencia');
-
--- Retiros
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000008, '2023-02-13 10:20:00', 310000.00, 'retiro', 'Retiro en cajero'),
-(1000000008, '2023-02-23 15:40:00', 390000.00, 'retiro', 'Retiro en ventanilla'),
-(1000000008, '2023-02-28 12:10:00', 240000.00, 'retiro', 'Retiro en cajero automático');
-
--- Transferencias
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000008, '2023-03-13 08:30:00', 350000.00, 'transferencia', 'Pago de servicios'),
-(1000000008, '2023-03-23 13:20:00', 450000.00, 'transferencia', 'Transferencia a familiar'),
-(1000000008, '2023-03-31 10:45:00', 220000.00, 'transferencia', 'Pago de préstamo');
-
 -- Registros adicionales para Deposito, Retiro y Transferencia
 INSERT INTO Deposito (id_transaccion, medio_pago) VALUES
 (64, 'efectivo'),
@@ -673,25 +699,6 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (71, 1000000009),
 (72, 1000000010);
 
--- Transacciones para la cuenta 1000000009 (Cliente 3: Carlos Rodríguez)
--- Depósitos
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000009, '2023-01-14 11:15:00', 950000.00, 'deposito', 'Depósito de nómina'),
-(1000000009, '2023-01-24 16:30:00', 820000.00, 'deposito', 'Depósito por transferencia'),
-(1000000009, '2023-01-31 13:45:00', 880000.00, 'deposito', 'Depósito en efectivo');
-
--- Retiros
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000009, '2023-02-14 12:20:00', 480000.00, 'retiro', 'Retiro en ventanilla'),
-(1000000009, '2023-02-24 17:40:00', 620000.00, 'retiro', 'Retiro en cajero'),
-(1000000009, '2023-02-28 14:10:00', 380000.00, 'retiro', 'Retiro para gastos');
-
--- Transferencias
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000009, '2023-03-14 10:30:00', 520000.00, 'transferencia', 'Pago de tarjeta de crédito'),
-(1000000009, '2023-03-24 15:20:00', 680000.00, 'transferencia', 'Transferencia a socio'),
-(1000000009, '2023-03-31 12:45:00', 350000.00, 'transferencia', 'Pago de alquiler');
-
 -- Registros adicionales para Deposito, Retiro y Transferencia
 INSERT INTO Deposito (id_transaccion, medio_pago) VALUES
 (73, 'nómina'),
@@ -707,25 +714,6 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (79, 1000000008),
 (80, 1000000007),
 (81, 1000000006);
-
--- Transacciones para la cuenta 1000000010 (Cliente 4: Ana Martínez)
--- Depósitos
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000010, '2023-01-15 08:15:00', 780000.00, 'deposito', 'Depósito de nómina'),
-(1000000010, '2023-01-25 13:30:00', 890000.00, 'deposito', 'Depósito por transferencia'),
-(1000000010, '2023-01-31 09:45:00', 720000.00, 'deposito', 'Depósito en efectivo');
-
--- Retiros
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000010, '2023-02-15 09:20:00', 420000.00, 'retiro', 'Retiro en ventanilla'),
-(1000000010, '2023-02-25 14:40:00', 550000.00, 'retiro', 'Retiro en cajero'),
-(1000000010, '2023-02-28 10:10:00', 320000.00, 'retiro', 'Retiro para gastos');
-
--- Transferencias
-INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
-(1000000010, '2023-03-15 07:30:00', 460000.00, 'transferencia', 'Pago de tarjeta de crédito'),
-(1000000010, '2023-03-25 12:20:00', 610000.00, 'transferencia', 'Transferencia a socio'),
-(1000000010, '2023-03-31 08:45:00', 290000.00, 'transferencia', 'Pago de alquiler');
 
 -- Registros adicionales para Deposito, Retiro y Transferencia
 INSERT INTO Deposito (id_transaccion, medio_pago) VALUES
