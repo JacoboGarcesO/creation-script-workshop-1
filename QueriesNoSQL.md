@@ -8,6 +8,28 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Clientes.aggregate([
+  { $unwind: "$cuentas" },
+  {
+    $group: {
+      _id: "$cuentas.tipo_cuenta",
+      saldo_total: { $sum: "$cuentas.saldo" },
+      saldo_promedio: { $avg: "$cuentas.saldo" },
+      saldo_maximo: { $max: "$cuentas.saldo" },
+      saldo_minimo: { $min: "$cuentas.saldo" }
+    }
+  },
+  {
+    $project: {
+      tipo_cuenta: "$_id",
+      _id: 0,
+      saldo_total: 1,
+      saldo_promedio: 1,
+      saldo_maximo: 1,
+      saldo_minimo: 1
+    }
+  }
+]);
 ```
 
 ## 2. Patrones de Transacciones por Cliente
@@ -16,6 +38,47 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Transacciones.aggregate([
+  {
+    $group: {
+      _id: {
+        cliente_id: "$cliente_ref",
+        tipo_transaccion: "$tipo_transaccion"
+      },
+      cantidad: { $sum: 1 },
+      monto_total: { $sum: "$monto" }
+    }
+  },
+  {
+    $group: {
+      _id: "$_id.cliente_id",
+      transacciones: {
+        $push: {
+          tipo: "$_id.tipo_transaccion",
+          cantidad: "$cantidad",
+          monto_total: "$monto_total"
+        }
+      }
+    }
+  },
+  {
+    $lookup: {
+      from: "Clientes",
+      localField: "_id",
+      foreignField: "_id",
+      as: "cliente"
+    }
+  },
+  { $unwind: "$cliente" },
+  {
+    $project: {
+      _id: 0,
+      cliente: "$cliente.nombre",
+      cedula: "$cliente.cedula",
+      transacciones: 1
+    }
+  }
+]);
 ```
 
 ## 3. Clientes con Múltiples Tarjetas de Crédito
@@ -24,6 +87,34 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Clientes.aggregate([
+  { $unwind: "$cuentas" },
+  { $unwind: "$cuentas.tarjetas" },
+  { $match: { "cuentas.tarjetas.tipo_tarjeta": "credito" } },
+  {
+    $group: {
+      _id: "$_id",
+      nombre: { $first: "$nombre" },
+      cedula: { $first: "$cedula" },
+      correo: { $first: "$correo" },
+      direccion: { $first: "$direccion" },
+      tarjetas_credito: { $push: "$cuentas.tarjetas" },
+      cantidad_tarjetas_credito: { $sum: 1 }
+    }
+  },
+  { $match: { cantidad_tarjetas_credito: { $gt: 1 } } },
+  {
+    $project: {
+      _id: 0,
+      nombre: 1,
+      cedula: 1,
+      correo: 1,
+      direccion: 1,
+      cantidad_tarjetas_credito: 1,
+      tarjetas_credito: 1
+    }
+  }
+]);
 ```
 
 ## 4. Análisis de Medios de Pago más Utilizados
@@ -32,6 +123,41 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Transacciones.aggregate([
+  {
+    $match: {
+      tipo_transaccion: "deposito"
+    }
+  },
+  {
+    $addFields: {
+      fecha_convertida: { $toDate: "$fecha" }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        mes: { $dateToString: { format: "%Y-%m", date: "$fecha_convertida" } },
+        medio_pago: "$detalles_deposito.medio_pago"
+      },
+      cantidad: { $sum: 1 }
+    }
+  },
+  {
+    $sort: {
+      "_id.mes": 1,
+      cantidad: -1
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      mes: "$_id.mes",
+      medio_pago: "$_id.medio_pago",
+      cantidad: 1
+    }
+  }
+]);
 ```
 
 ## 5. Detección de Cuentas con Transacciones Sospechosas
@@ -40,4 +166,41 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.Transacciones.aggregate([
+  {
+    $match: {
+      tipo_transaccion: "retiro"
+    }
+  },
+  {
+    $addFields: {
+      fecha_convertida: { $toDate: "$fecha" }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        num_cuenta: "$num_cuenta",
+        fecha: { $dateToString: { format: "%Y-%m-%d", date: "$fecha_convertida" } }
+      },
+      total_retiros: { $sum: "$monto" },
+      cantidad_retiros: { $sum: 1 }
+    }
+  },
+  {
+    $match: {
+      cantidad_retiros: { $gt: 3 },
+      total_retiros: { $gt: 1000000 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      num_cuenta: "$_id.num_cuenta",
+      fecha: "$_id.fecha",
+      cantidad_retiros: 1,
+      total_retiros: 1
+    }
+  }
+]);
 ```

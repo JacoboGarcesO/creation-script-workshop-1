@@ -6,7 +6,11 @@
 
 **Consulta SQL:**
 ```sql
-
+select c.id_cliente, c.nombre, COUNT(ct.num_cuenta) as cantidad_cuentas, SUM(ct.saldo) as saldo_total from Cliente c 
+inner join Cuenta ct on c.id_cliente = ct.id_cliente
+group by c.id_cliente, c.nombre
+having COUNT(ct.num_cuenta) > 1 
+order by saldo_total desc;
 ```
 
 ## Enunciado 2: Comparativa entre depósitos y retiros por cliente
@@ -15,7 +19,13 @@
 
 **Consulta SQL:**
 ```sql
-
+select cl.nombre,
+    COALESCE(SUM(case when t.tipo_transaccion = 'deposito' then t.monto end), 0) as total_depositos,
+    COALESCE(SUM(case when t.tipo_transaccion = 'retiro' then t.monto end), 0) as total_retiros
+from Cliente cl
+inner join Cuenta c on cl.id_cliente = c.id_cliente
+inner join Transaccion t on c.num_cuenta = t.num_cuenta
+group by cl.nombre;
 ```
 
 ## Enunciado 3: Cuentas sin tarjetas asociadas
@@ -24,7 +34,10 @@
 
 **Consulta SQL:**
 ```sql
-
+select c.num_cuenta, c.id_cliente from cuenta c
+inner join cliente cl on c.id_cliente = cl.id_cliente
+left join tarjeta t on c.num_cuenta = t.num_cuenta
+where t.num_cuenta is null;
 ```
 
 ## Enunciado 4: Análisis de saldos promedio por tipo de cuenta y comportamiento transaccional
@@ -33,7 +46,10 @@
 
 **Consulta SQL:**
 ```sql
-
+select c.tipo_cuenta, avg(c.saldo) as saldo_promedio from cuenta c
+inner join transaccion t on c.num_cuenta = t.num_cuenta
+where t.fecha >= current_date - interval '30 days'
+group by c.tipo_cuenta;
 ```
 
 ## Enunciado 5: Clientes con transferencias pero sin retiros en cajeros
@@ -42,5 +58,14 @@
 
 **Consulta SQL:**
 ```sql
-
+select cl.id_cliente, cl.nombre, cl.correo from cliente cl
+join cuenta c on cl.id_cliente = c.id_cliente
+join transaccion t1 on c.num_cuenta = t1.num_cuenta
+join transferencia tr on t1.id_transaccion = tr.id_transaccion
+where cl.id_cliente not in (
+        select cl2.id_cliente from cliente cl2
+        join cuenta c2 on cl2.id_cliente = c2.id_cliente
+        join transaccion t2 on c2.num_cuenta = t2.num_cuenta
+        join retiro r on t2.id_transaccion = r.id_transaccion
+        where r.canal = 'cajero');
 ```
