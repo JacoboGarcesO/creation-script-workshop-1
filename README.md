@@ -742,4 +742,166 @@ INSERT INTO Transferencia (id_transaccion, cuenta_destino) VALUES
 (88, 1000000011),
 (89, 1000000012),
 (90, 1000000001);
-```
+
+-- ============================================================================
+-- CONTINUACIÓN DE CARGA DE DATOS DE TRANSACCIONES
+-- Se completa la inserción de transacciones para las cuentas 11 a 30,
+-- siguiendo el patrón de 9 transacciones por cuenta (3 de cada tipo).
+-- ============================================================================
+
+-- Transacciones para las cuentas 1000000011 a 1000000030
+-- Se insertan primero todas las transacciones base para mantener la secuencia de IDs
+
+-- Cliente 4: Ana Martínez (Cuentas 11-12)
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000011, '2023-04-01', 250000.00, 'deposito', 'Abono de ahorros'), (1000000011, '2023-04-05', 300000.00, 'deposito', 'Depósito en efectivo'), (1000000011, '2023-04-10', 150000.00, 'deposito', 'Transferencia recibida'),
+(1000000011, '2023-04-12', 100000.00, 'retiro', 'Retiro en cajero'), (1000000011, '2023-04-15', 200000.00, 'retiro', 'Retiro en ventanilla'), (1000000011, '2023-04-20', 50000.00, 'retiro', 'Retiro para compras'),
+(1000000011, '2023-04-22', 80000.00, 'transferencia', 'Pago de factura'), (1000000011, '2023-04-25', 120000.00, 'transferencia', 'Envío a familiar'), (1000000011, '2023-04-28', 90000.00, 'transferencia', 'Pago online'),
+(1000000012, '2023-04-02', 700000.00, 'deposito', 'Depósito de nómina'), (1000000012, '2023-04-06', 500000.00, 'deposito', 'Abono de cliente'), (1000000012, '2023-04-11', 600000.00, 'deposito', 'Depósito de cheque'),
+(1000000012, '2023-04-13', 300000.00, 'retiro', 'Retiro para gastos'), (1000000012, '2023-04-16', 400000.00, 'retiro', 'Retiro en cajero'), (1000000012, '2023-04-21', 250000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000012, '2023-04-23', 200000.00, 'transferencia', 'Pago de arriendo'), (1000000012, '2023-04-26', 350000.00, 'transferencia', 'Pago a proveedor'), (1000000012, '2023-04-29', 150000.00, 'transferencia', 'Pago de servicios');
+
+-- Cliente 5: Pedro Gómez (Cuentas 13-15)
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000013, '2023-05-01', 400000.00, 'deposito', 'Abono de ahorros'), (1000000013, '2023-05-05', 350000.00, 'deposito', 'Depósito en efectivo'), (1000000013, '2023-05-10', 200000.00, 'deposito', 'Transferencia recibida'),
+(1000000013, '2023-05-12', 150000.00, 'retiro', 'Retiro en cajero'), (1000000013, '2023-05-15', 250000.00, 'retiro', 'Retiro en ventanilla'), (1000000013, '2023-05-20', 100000.00, 'retiro', 'Retiro para compras'),
+(1000000013, '2023-05-22', 90000.00, 'transferencia', 'Pago de factura'), (1000000013, '2023-05-25', 130000.00, 'transferencia', 'Envío a familiar'), (1000000013, '2023-05-28', 110000.00, 'transferencia', 'Pago online'),
+(1000000014, '2023-05-02', 800000.00, 'deposito', 'Depósito de nómina'), (1000000014, '2023-05-06', 600000.00, 'deposito', 'Abono de cliente'), (1000000014, '2023-05-11', 700000.00, 'deposito', 'Depósito de cheque'),
+(1000000014, '2023-05-13', 400000.00, 'retiro', 'Retiro para gastos'), (1000000014, '2023-05-16', 500000.00, 'retiro', 'Retiro en cajero'), (1000000014, '2023-05-21', 350000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000014, '2023-05-23', 300000.00, 'transferencia', 'Pago de arriendo'), (1000000014, '2023-05-26', 450000.00, 'transferencia', 'Pago a proveedor'), (1000000014, '2023-05-29', 250000.00, 'transferencia', 'Pago de servicios'),
+(1000000015, '2023-05-03', 200000.00, 'deposito', 'Abono de ahorros'), (1000000015, '2023-05-07', 250000.00, 'deposito', 'Depósito en efectivo'), (1000000015, '2023-05-12', 180000.00, 'deposito', 'Transferencia recibida'),
+(1000000015, '2023-05-14', 120000.00, 'retiro', 'Retiro en cajero'), (1000000015, '2023-05-17', 150000.00, 'retiro', 'Retiro en ventanilla'), (1000000015, '2023-05-22', 80000.00, 'retiro', 'Retiro para compras'),
+(1000000015, '2023-05-24', 70000.00, 'transferencia', 'Pago de factura'), (1000000015, '2023-05-27', 100000.00, 'transferencia', 'Envío a familiar'), (1000000015, '2023-05-30', 60000.00, 'transferencia', 'Pago online');
+
+-- Cliente 6: Laura Sánchez (Cuentas 16-18)
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000016, '2023-06-01', 900000.00, 'deposito', 'Depósito de nómina'), (1000000016, '2023-06-05', 750000.00, 'deposito', 'Abono de cliente'), (1000000016, '2023-06-10', 800000.00, 'deposito', 'Depósito de cheque'),
+(1000000016, '2023-06-12', 500000.00, 'retiro', 'Retiro para gastos'), (1000000016, '2023-06-15', 600000.00, 'retiro', 'Retiro en cajero'), (1000000016, '2023-06-20', 400000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000016, '2023-06-22', 350000.00, 'transferencia', 'Pago de arriendo'), (1000000016, '2023-06-25', 500000.00, 'transferencia', 'Pago a proveedor'), (1000000016, '2023-06-28', 300000.00, 'transferencia', 'Pago de servicios'),
+(1000000017, '2023-06-02', 300000.00, 'deposito', 'Abono de ahorros'), (1000000017, '2023-06-06', 350000.00, 'deposito', 'Depósito en efectivo'), (1000000017, '2023-06-11', 250000.00, 'deposito', 'Transferencia recibida'),
+(1000000017, '2023-06-13', 200000.00, 'retiro', 'Retiro en cajero'), (1000000017, '2023-06-16', 150000.00, 'retiro', 'Retiro en ventanilla'), (1000000017, '2023-06-21', 100000.00, 'retiro', 'Retiro para compras'),
+(1000000017, '2023-06-23', 80000.00, 'transferencia', 'Pago de factura'), (1000000017, '2023-06-26', 120000.00, 'transferencia', 'Envío a familiar'), (1000000017, '2023-06-29', 90000.00, 'transferencia', 'Pago online'),
+(1000000018, '2023-06-03', 750000.00, 'deposito', 'Depósito de nómina'), (1000000018, '2023-06-07', 550000.00, 'deposito', 'Abono de cliente'), (1000000018, '2023-06-12', 650000.00, 'deposito', 'Depósito de cheque'),
+(1000000018, '2023-06-14', 350000.00, 'retiro', 'Retiro para gastos'), (1000000018, '2023-06-17', 450000.00, 'retiro', 'Retiro en cajero'), (1000000018, '2023-06-22', 300000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000018, '2023-06-24', 250000.00, 'transferencia', 'Pago de arriendo'), (1000000018, '2023-06-27', 400000.00, 'transferencia', 'Pago a proveedor'), (1000000018, '2023-06-30', 200000.00, 'transferencia', 'Pago de servicios');
+
+-- Cliente 7: Diego Ramírez (Cuentas 19-21)
+INSERT INTO Transaccion (num_cuenta, fecha, monto, tipo_transaccion, descripcion) VALUES
+(1000000019, '2023-07-01', 280000.00, 'deposito', 'Abono de ahorros'), (1000000019, '2023-07-05', 320000.00, 'deposito', 'Depósito en efectivo'), (1000000019, '2023-07-10', 180000.00, 'deposito', 'Transferencia recibida'),
+(1000000019, '2023-07-12', 120000.00, 'retiro', 'Retiro en cajero'), (1000000019, '2023-07-15', 220000.00, 'retiro', 'Retiro en ventanilla'), (1000000019, '2023-07-20', 70000.00, 'retiro', 'Retiro para compras'),
+(1000000019, '2023-07-22', 90000.00, 'transferencia', 'Pago de factura'), (1000000019, '2023-07-25', 110000.00, 'transferencia', 'Envío a familiar'), (1000000019, '2023-07-28', 80000.00, 'transferencia', 'Pago online'),
+(1000000020, '2023-07-02', 720000.00, 'deposito', 'Depósito de nómina'), (1000000020, '2023-07-06', 520000.00, 'deposito', 'Abono de cliente'), (1000000020, '2023-07-11', 620000.00, 'deposito', 'Depósito de cheque'),
+(1000000020, '2023-07-13', 320000.00, 'retiro', 'Retiro para gastos'), (1000000020, '2023-07-16', 420000.00, 'retiro', 'Retiro en cajero'), (1000000020, '2023-07-21', 270000.00, 'retiro', 'Retiro en ventanilla'),
+(1000000020, '2023-07-23', 220000.00, 'transferencia', 'Pago de arriendo'), (1000000020, '2023-07-26', 370000.00, 'transferencia', 'Pago a proveedor'), (1000000020, '2023-07-29', 170000.00, 'transferencia', 'Pago de servicios'),
+(1000000021, '2023-07-03', 180000.00, 'deposito', 'Abono de ahorros'), (1000000021, '2023-07-07', 220000.00, 'deposito', 'Depósito en efectivo'), (1000000021, '2023-07-12', 150000.00, 'deposito', 'Transferencia recibida'),
+(1000000021, '2023-07-14', 100000.00, 'retiro', 'Retiro en cajero'), (1000000021, '2023-07-17', 130000.00, 'retiro', 'Retiro en ventanilla'), (1000000021, '2023-07-22', 60000.00, 'retiro', 'Retiro para compras'),
+(1000000021, '2023-07-24', 60000.00, 'transferencia', 'Pago de factura'), (1000000021, '2023-07-27', 90000.00, 'transferencia', 'Envío a familiar'), (1000000021, '2023-07-30', 50000.00, 'transferencia', 'Pago online');
+
+
+
+--- Version Humana Juan Diego Muñoz Ospina-----
+SELECT
+    cli.id_cliente,
+    cli.nombre,
+    COUNT(cta.id_cliente) AS numero_de_cuentas,
+    SUM(cta.saldo) as saldototal
+FROM
+    Cliente cli
+JOIN
+    Cuenta cta ON cli.id_cliente = cta.id_cliente
+GROUP BY
+    cli.id_cliente, cli.nombre
+HAVING COUNT(cta.num_cuenta) > 1
+ORDER BY
+    saldototal DESC;
+
+--- Version humana Juandiego Muñoz Ospina Punto 2
+
+SELECT
+	cli.id_cliente,
+	cli.nombre,
+    SUM(t_deposito.monto_total_deposito) AS monto_total_depositos_por_cuenta,
+    SUM(r_retirado.valor_retirado) AS monto_total_retirado
+FROM
+    cliente cli
+JOIN
+    cuenta c ON cli.id_cliente = c.id_cliente
+LEFT JOIN (
+    SELECT
+        tran.num_cuenta,
+        SUM(tran.monto) AS monto_total_deposito
+    FROM
+        transaccion tran
+    INNER JOIN
+        deposito d ON d.id_transaccion = tran.id_transaccion
+    GROUP BY
+        tran.num_cuenta
+) AS t_deposito ON c.num_cuenta = t_deposito.num_cuenta
+
+LEFT JOIN(
+	SELECT
+        t.num_cuenta, SUM(t.monto) AS valor_retirado
+    FROM
+        transaccion t
+    INNER JOIN
+        retiro r ON r.id_transaccion = t.id_transaccion
+        GROUP by t.num_cuenta
+        )
+        AS r_retirado ON c.num_cuenta = r_retirado.num_cuenta
+GROUP BY
+     cli.id_cliente,cli.nombre;
+
+
+--- version mejorada por ia puntos 2 y comprendida por Juan diego Muñoz Ospina
+SELECT
+    c.id_cliente,
+    c.nombre,
+    COALESCE(SUM(CASE WHEN t.tipo_transaccion = 'deposito' THEN t.monto ELSE 0 END), 0) AS total_depositos,
+    COALESCE(SUM(CASE WHEN t.tipo_transaccion = 'retiro' THEN t.monto ELSE 0 END), 0) AS total_retiros
+FROM Cliente c
+JOIN Cuenta cta ON c.id_cliente = cta.id_cliente
+LEFT JOIN Transaccion t ON cta.num_cuenta = t.num_cuenta
+GROUP BY c.id_cliente, c.nombre
+ORDER BY c.nombre;
+
+--- Version humana Juandiego Muñoz Ospina Punto 3
+
+SELECT c.num_cuenta FROM cuenta c
+
+EXCEPT
+
+SELECT t.num_cuenta FROM tarjeta t
+
+---version con ayuda ia puntos 3 comprendida por Juan Diego Muñoz Ospina
+SELECT
+    cta.num_cuenta,
+    cli.nombre AS nombre_titular,
+    cta.tipo_cuenta
+FROM Cuenta cta
+JOIN Cliente cli ON cta.id_cliente = cli.id_cliente
+LEFT JOIN Tarjeta t ON cta.num_cuenta = t.num_cuenta
+WHERE t.num_cuenta IS NULL;
+
+--- Version humana Juandiego Muñoz Ospina Punto 4
+
+SELECT
+    cta.tipo_cuenta,
+    COUNT(cta.num_cuenta) AS cantidad_cuentas_activas,
+    AVG(cta.saldo) AS saldo_promedio
+FROM
+    Cuenta cta
+WHERE EXISTS (
+    SELECT 1 FROM Transaccion t WHERE t.num_cuenta = cta.num_cuenta AND t.fecha >= ('2023-04-15'::timestamp - INTERVAL '30 days') --- esta subconsulta require apoyo en fuentes externas y las transaciones están datadas en el 2023
+)--- buen dato conocer este tipo de complejidad
+GROUP BY cta.tipo_cuenta;
+
+---Version humana Juan Diego Muñoz Ospina punto 5
+SELECT c.nombre FROM cliente c
+INNER JOIN cuenta cu ON cu.id_cliente = c.id_cliente
+INNER JOIN 
+(select t.num_cuenta from transaccion t
+INNER JOIN retiro r ON r.id_transaccion = t.id_transaccion
+WHERE t.descripcion <> 'Retiro en cajero'
+GROUP BY t.num_cuenta) AS transa_sin_retiros ON transa_sin_retiros.num_cuenta = cu.num_cuenta
+GROUP BY c.nombre; 
+
