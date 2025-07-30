@@ -8,6 +8,20 @@ A continuación se presentan 5 enunciados de consultas basados en las coleccione
 
 **Consulta MongoDB:**
 ```javascript
+db.clientes.aggregate([
+  {
+    $unwind: "$cuentas"
+  },
+  {
+    $group: {
+      _id: "$cuentas.tipo_cuenta",
+      saldoTotal: { $sum: "$cuentas.saldo" },
+      saldoPromedio: { $avg: "$cuentas.saldo" },
+      saldoMaximo: { $max: "$cuentas.saldo" },
+      saldoMinimo: { $min: "$cuentas.saldo" }
+    }
+  }
+])
 ```
 
 ## 2. Patrones de Transacciones por Cliente
