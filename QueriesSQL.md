@@ -7,6 +7,16 @@
 **Consulta SQL:**
 ```sql
 
+SELECT
+  COUNT(cu.num_cuenta) AS cantidad_cuentas,
+  SUM(cu.saldo) AS saldo_total,
+  cli.cedula
+FROM cliente cli
+JOIN cuenta cu ON cli.id_cliente = cu.id_cliente
+GROUP BY cli.cedula
+HAVING COUNT(cu.num_cuenta) > 2
+ORDER BY saldo_total;
+
 ```
 
 ## Enunciado 2: Comparativa entre depósitos y retiros por cliente
@@ -15,6 +25,38 @@
 
 **Consulta SQL:**
 ```sql
+
+SELECT
+consulta_depositos.cedula,
+consulta_depositos.monto_deposito,
+consulta_retiro.monto_retiro
+FROM
+	(SELECT
+	SUM(tra.monto) AS monto_deposito,
+	cli.cedula
+	FROM
+	cliente cli,
+	cuenta cu,
+	transaccion tra
+	WHERE
+	cli.id_cliente = cu.id_cliente
+	AND cu.num_cuenta = tra.num_cuenta
+	AND tra.tipo_transaccion = 'deposito'
+	GROUP BY cli.cedula) consulta_depositos,	
+	(SELECT
+	SUM(tra.monto) AS monto_retiro,
+	cli.cedula
+	FROM
+	cliente cli,
+	cuenta cu,
+	transaccion tra
+	WHERE
+	cli.id_cliente = cu.id_cliente
+	AND cu.num_cuenta = tra.num_cuenta
+	AND tra.tipo_transaccion = 'retiro'
+	GROUP BY cli.cedula ) consulta_retiro
+WHERE
+consulta_depositos.cedula = consulta_retiro.cedula;
 
 ```
 
@@ -25,6 +67,13 @@
 **Consulta SQL:**
 ```sql
 
+SELECT
+* FROM
+cuenta cu
+where
+cu.num_cuenta not in (select t.num_cuenta from tarjeta t);
+
+
 ```
 
 ## Enunciado 4: Análisis de saldos promedio por tipo de cuenta y comportamiento transaccional
@@ -33,6 +82,17 @@
 
 **Consulta SQL:**
 ```sql
+SELECT t.num_cuenta, t.id_transaccion
+FROM transaccion t
+WHERE t.tipo_transaccion = 'transferencia'
+  AND NOT EXISTS (
+    SELECT t2.num_cuenta 
+    FROM transaccion t2
+    JOIN retiro r ON t2.id_transaccion = r.id_transaccion
+    WHERE t2.num_cuenta = t.num_cuenta
+      AND r.canal = 'cajero'
+  );
+
 
 ```
 
@@ -42,5 +102,21 @@
 
 **Consulta SQL:**
 ```sql
+SELECT AVG(t.monto ) promedioCAhorro
+FROM 
+transaccion t,
+cuentaahorro ch
+where
+t.num_cuenta = ch.num_cuenta
+and t.fecha >= '2023-03-01 00:00:00';
+
+SELECT AVG(t.monto ) promedioCAhorro
+FROM 
+transaccion t,
+cuentacorriente ch
+where
+t.num_cuenta = ch.num_cuenta
+and t.fecha >= '2023-03-01 00:00:00';
+
 
 ```
